@@ -3,21 +3,16 @@ import random
 class GridWorld():
     """
     The world is a 5 x 5 grid based on Example 3.5 from Sutton 2019. There are 25 states. We index these states as follows:
-
         0   1   2   3   4
         5   6   7   8   9
         10  11  12  13  14
         15  16  17  18  19
         20  21  22  23  24
-
     For example, state "1" is cell "A" in Sutton 2019, state "3" is cell "B", and so forth.
-
     There are 4 actions. We index these actions as follows:
-
                 1 (up)
         2 (left)        0 (right)
                 3 (down)
-
     If you specify hard_version=True, then the action will be selected uniformly at random 10% of the time.
     """
 

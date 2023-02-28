@@ -4,7 +4,7 @@ import scipy.integrate
 
 
 class Pendulum():
-    def __init__(self, n_theta=31, n_thetadot=31, n_tau=31):
+    def __init__(self, n_theta, n_thetadot, n_tau):
         # Parameters that describe the physical system
         self.params = {
             'm': 1.0,   # mass
