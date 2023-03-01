@@ -51,6 +51,13 @@ def value_iteration(env, theta, gamma):
     V = np.zeros(env.num_states)
     value_iter_num = 0
     
+    S = []
+    AA = []
+    R = []
+    T = []
+    time = 0
+    r = 0
+    
     while True:
         iter_num.append(value_iter_num)
         mean_value_function.append(np.mean(V))
@@ -73,7 +80,6 @@ def value_iteration(env, theta, gamma):
         
         # Check if we can stop 
         if delta < theta:
-
             break
     
     # Create a deterministic policy using the optimal value function
@@ -87,6 +93,21 @@ def value_iteration(env, theta, gamma):
         
         # Always take the best action
         policy[state, best_action] = 1
+        
+        env.s= state         
+        r = env.step(best_action)[1]
+        S.append(state)
+        AA.append(best_action)
+        R.append(r) 
+        T.append(time/25)
+        time += 1
+        
+    plt.plot(T, AA)
+    plt.plot(T, S)
+    plt.plot(T, R)
+    plt.xlabel('Time (s)')
+    plt.title('Trajectory for the trained agent')
+    plt.legend(['Action','State','Reward'])
     
     return policy, V, mean_value_function, iter_num
 
@@ -115,3 +136,8 @@ print("")
 print("Reshaped Grid Value Function:")
 print(v.reshape((5,5)))
 print("")
+
+plt.plot(np.arange(25), v)
+plt.xlabel("State")
+plt.ylabel('V(s)')
+plt.title("Learned Value Function")
