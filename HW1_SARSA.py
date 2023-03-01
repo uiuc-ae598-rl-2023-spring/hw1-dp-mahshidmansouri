@@ -285,17 +285,17 @@ def learning_curve_plotter_for_different_epsilon(epsilon, alpha):
 ############################################## Main ##############################################
 
 # Parameters Initilization 
-total_episodes = 50
+total_episodes = 100
 max_steps = 100
 gamma = 0.95
  
 # Create the environment
-## For the gridworld problem
-#env = gridworld.GridWorld(hard_version=False)
+#For the gridworld problem
+env = gridworld.GridWorld(hard_version=False)
 
 ## For the inveretd pendulum problem 
-n_theta, n_thetadot, n_tau = 5, 5, 5
-env =discrete_pendulum.Pendulum(n_theta, n_thetadot, n_tau)
+# n_theta, n_thetadot, n_tau = 5, 5, 5
+# env =discrete_pendulum.Pendulum(n_theta, n_thetadot, n_tau)
 
 
 # A plot of learning curves for several different values of epsilon
@@ -322,6 +322,13 @@ print("")
 V = TD_zero(env, policy, alpha, gamma)
 print("Reshaped TD(0)-Learned State Value Function :")
 print(V.reshape(int(np.sqrt(env.num_states)),int(np.sqrt(env.num_states))))
+
+
+# For the Gridworld
+plt.plot(np.arange(25), V)
+plt.xlabel("State")
+plt.ylabel('V(s)')
+plt.title("Learned Value Function")
 
 
         

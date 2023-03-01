@@ -100,7 +100,12 @@ def policy_improvement(env, gamma, theta):
     
     # Start with a random policy
     policy = np.ones([env.num_states, env.num_actions])/env.num_actions
-   
+    S = []
+    A = []
+    R = []
+    T = []
+    time = 0
+    r = 0
     while True:
         
         # Evaluate the current policy
@@ -108,6 +113,7 @@ def policy_improvement(env, gamma, theta):
         
         # Will be set to false if we make any changes to the policy
         policy_stable = True
+        
         
         # For each state, perform the following ...
         for state in range(env.num_states):
@@ -122,10 +128,27 @@ def policy_improvement(env, gamma, theta):
             # Greedily update the policy
             if chosen_a != best_a:
                 policy_stable = False
+                
+            else: 
+                env.s= state         
+                r = env.step(chosen_a)[1]                 
+                S.append(state)
+                A.append(best_a)
+                R.append(r) 
+                T.append(time/25)
+                time += 1
+            
             policy[state] = np.eye(env.num_actions)[best_a]/env.num_actions
-        
+                      
         # If the policy is stable we've found an optimal policy. Return it
         if policy_stable:
+            plt.plot(T, A)
+            plt.plot(T, S)
+            plt.plot(T, R)
+            plt.xlabel('Time (s)')
+            plt.title('Trajectory for the trained agent')
+            plt.legend(['Action','State','Reward'])
+
             return policy, V, mean_value_function, iter_num 
 
 ############################################## Main ##############################################
@@ -134,7 +157,7 @@ env = gridworld.GridWorld(hard_version=False)
 
 # Parameters Initialization
 gamma = 0.95 
-theta = 0.001
+theta = 0.0001
 policy, v, mean_value_function, iter_num  = policy_improvement(env, gamma, theta)
 
 
@@ -155,6 +178,10 @@ print("Reshaped Grid Value Function:")
 print(v.reshape((5,5)))
 print("")
 
+plt.plot(np.arange(25), v)
+plt.xlabel("State")
+plt.ylabel('V(s)')
+plt.title("Learned Value Function")
     
     
 

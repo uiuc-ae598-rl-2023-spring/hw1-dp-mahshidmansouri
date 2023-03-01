@@ -305,7 +305,7 @@ gamma = 0.95
  
 # Create the environment
 ## For the gridworld problem
-# env = gridworld.GridWorld(hard_version=False)
+#env = gridworld.GridWorld(hard_version=False)
 
 ## For the inveretd pendulum problem 
 n_theta, n_thetadot, n_tau = 5, 5 ,5
@@ -334,3 +334,10 @@ print("")
 V = TD_zero(env, policy, alpha, gamma)
 print("Reshaped TD(0)-Learned State Value Function :")
 print(V.reshape(5,5))
+
+# For the Gridworld
+plt.plot(np.arange(25), V)
+plt.xlabel("State")
+plt.ylabel('V(s)')
+plt.title("Learned Value Function")
+
