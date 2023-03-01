@@ -1,4 +1,4 @@
-# HW1 - Dynamic Programming
+# HW1 - Dynamic Programming - Branch Version 2
 
 ## What to do
 
